@@ -1,6 +1,8 @@
 import { EnvironmentService } from '../../environment.variables';
 import { white, red, yellow, green, gray, blue } from 'chalk';
 import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
+import { DATABASES } from '../../server.constants';
+
 import * as url from 'url';
 const URL = url.URL;
 
@@ -38,12 +40,6 @@ function getMethodColor(method) {
     return color;
 }
 
-function getAllowedDatabases() {
-    const environment = new EnvironmentService('.env');
-    const allowedDbs = environment.get('DATABASES').split(',');
-    return allowedDbs;
-}
-
 const getOrigin = url => {
     if (url) {
         const newURL = new URL(url);
@@ -58,11 +54,19 @@ const getDatabaseFromOrigin = headers => {
     let subdomainDB,
         isValidSubdomain;
     const origin = getOrigin(headers.origin);
+
     if (origin) {
-        let subdomainDB = origin.split('.')[0].toLowerCase();
-        const allowedDbs = getAllowedDatabases();
-        const isValidSubdomain = allowedDbs.includes(`${subdomainDB}`);
+        console.log('ORIGIN HERE');
+        subdomainDB = origin.split('.')[0].toLowerCase();
+        const allowedDbs = DATABASES.map(db => db.toLowerCase());
+        console.log('allowed dbs');
+        console.log(allowedDbs);
+        isValidSubdomain = allowedDbs.includes(`${subdomainDB}`);
     }
+    console.log(headers.origin);
+    console.log(origin);
+    console.log(isValidSubdomain);
+    console.log(subdomainDB);
 
     if (isValidSubdomain) {
         return subdomainDB;

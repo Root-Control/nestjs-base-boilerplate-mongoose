@@ -54,10 +54,9 @@ export class CrudController<Entity> {
     */
     @GenericPermissions('create')
     @Post('')
-    async create(@Req() req) {
-        const model = req.body;
-        model.creator = req.user ? req.user._id: null;
-        return await this.crudService.create(model);
+    async create(@Body() body, @Req() req) {
+        body.creator = req.user ? req.user._id: null;
+        return await this.crudService.create(body);
     }
 
 

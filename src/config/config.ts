@@ -60,11 +60,11 @@ const Config: IEnvironmentConfig = {
     environment: environmentService.get('NODE_ENV'),
     rootPath,
     httpPort: parseInt(environmentService.get('HTTP_PORT')) || 8080,
-    wsPort: 1338,
+    wsPort: parseInt(environmentService.get('WS_PORT')) || 8080,
     jwtSecret,
     domain: environmentService.get('DOMAIN') || 'localhost',
-    httpProtocol: 'http',
-    wsProtocol: 'ws',
+    httpProtocol: environmentService.get('HTTP_PROTOCOL') || 'http',
+    wsProtocol: environmentService.get('WS_PROTOCOL') || 'ws',
 };
 
 const DbConfig: IDbConfig = {
@@ -75,7 +75,7 @@ const DbConfig: IDbConfig = {
     databaseUser: environmentService.get('DATABASE_USER') || 'yourlocalUserdb',
     databasePassword: environmentService.get('DATABASE_PASSWORD') || 'yourlocalMongodbPassword',
     databaseCluster: environmentService.get('DATABASE_CLUSTER') || '',
-    databases: environmentService.get('DATABASES').split(',') || ['local'],
+    databases: environmentService.get('DATABASES').split(',').map(db => db.toLowerCase()) || ['local'],
     databaseSeeding: eval(environmentService.get('DATABASE_SEEDING')) || false
 }
 

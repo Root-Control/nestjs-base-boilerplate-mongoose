@@ -16,7 +16,7 @@ async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule, { cors: true });
 
 const options = new DocumentBuilder()
-    .setTitle('Duopoly Application ')
+    .setTitle('Base BoilerPlate Application ')
     .setDescription('The cats API description')
     //.setVersion('1.0')
     .addTag('Architecture')

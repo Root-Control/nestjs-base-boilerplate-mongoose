@@ -2,7 +2,7 @@ import { createConnection, set, Connection, connections, ConnectionOptions  } fr
 import { SERVER_CONFIG, DB_CONNECTION_TOKEN, DATABASES } from '../server.constants';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
-const opts: ConnectionOptions = {
+let opts: ConnectionOptions = {
     dbName: null,
     useNewUrlParser: true,
     keepAlive: true,
@@ -19,8 +19,9 @@ export const databaseProviders = [{
             set('useCreateIndex', true);
             set('useFindAndModify', true);
             for (var i = 0; i < DATABASES.length; i++) {
+                opts.dbName = DATABASES[i];
                 console.log('-------------- CREATE CONNECTION BEGIN-----------------');
-                const connection = await createConnection(`mongodb+srv://hiropalacios:tBKQOguHhYUkGxhY@hirotesting-6ribk.mongodb.net/${DATABASES[i]}?retryWrites=true&w=majority`, opts);
+                await createConnection(`mongodb+srv://hiropalacios:tBKQOguHhYUkGxhY@hirotesting-6ribk.mongodb.net/${opts.dbName}?retryWrites=true&w=majority`, opts);
                 console.log('CONNECTED');
             }
         } catch (ex) {

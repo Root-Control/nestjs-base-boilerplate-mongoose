@@ -12,6 +12,7 @@ export class Tenant {
     constructor(@Inject(REQUEST) private readonly request: Request) {
         //  Hardcoded tenant, request origin should be attached here
         this.connection = connections.find(connection => connection.name === this.request['tenant']);
+        console.log(`Using ${this.request['tenant']} database`);
     }
 }
 

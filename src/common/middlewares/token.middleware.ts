@@ -16,17 +16,18 @@ export class TokenMiddleware implements NestMiddleware {
     constructor() {
         console.log('Token middleware loaded');
     }
-    async use(req: Request, res: Response, next: Function) {
+    async use(req, res: Response, next: Function) {
         console.log(magenta('-----------TOKEN MIDDLEWARE IS FIRED------------'));
-        
+        console.log(`Tenant is ${req.tenant}`);
+        connections.map(connection => {
+            console.log('NAME');
+            console.log(connection.name);
+        });
         const connection: Connection = connections.find(connection => connection.name === req['tenant']);
 
 
         this.userModel = await connection.model(USER_MODEL_TOKEN) as Model<IUser>;
 
-        console.log('USER MODEL');
-        console.log(this.userModel);
-        console.log(green('Trying this.userModel.find();'))
         try {
             let users = await this.userModel.find();
             console.log(users);
