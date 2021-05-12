@@ -40,7 +40,7 @@
     "moment": "^2.26.0",
     "mongoose": "^5.9.15",
     "multer-s3": "^2.9.0",
-    "nodemailer": "^6.4.6",
+    "nodemailer": "^6.4.16",
     "oauth2-server": "^3.0.1",
     "passport": "^0.4.1",
     "passport-facebook-token": "^3.3.0",
