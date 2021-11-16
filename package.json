@@ -29,7 +29,7 @@
     "@nestjs/platform-socket.io": "^7.0.13",
     "@nestjs/swagger": "^4.5.7",
     "@nestjs/websockets": "^7.0.13",
-    "aws-sdk": "^2.683.0",
+    "aws-sdk": "^2.814.0",
     "chalk": "^4.0.0",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.12.2",
